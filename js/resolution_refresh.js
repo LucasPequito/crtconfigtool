@@ -160,20 +160,6 @@ window.onload = function () {
 
     }
 
-    function isANumber(field){
-
-        validate = Number.isInteger(field)
-
-        if (validate == true){
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
     /*functions*/
 
 }
