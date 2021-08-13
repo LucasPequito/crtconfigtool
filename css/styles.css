@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+/*Form elements*/
+
+form {
+    width: 40%;
+    margin: 5%;
+    display: inline;
+}
+
+form dt {
+    float: left;
+    width: 220px;
+    text-align: right;
+}
+
+form dd {
+    margin-left: 250px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-size: 22px;
+}
+
+input[type='button'] {
+    margin-left: 15%;
+}
+
+/*Form elements*/
+
+/* unvisited link */
+a:link {
+
+    text-decoration: none;
+    color: #010081;
+}
+  
+/* visited link */
+a:visited {
+
+    text-decoration: none;
+    color: #010081;
+
+}
+  
+/* mouse over link */
+a:hover {
+
+    text-decoration: underline;
+    color: black;
+
+}
+  
+/* selected link */
+a:active {
+
+    text-decoration: none;
+    color: #010081;
+
+}
+
+body {
+
+    margin: 5px;
+    font-family: 'Open Sans', sans-serif;
+    color: #2e2e2e;
+    align-self: center;
+    text-align: left;
+    background-image: url("../media/img/background.png");
+
+}
+
+p {
+
+    padding: 5px;
+    text-align: middle;
+
+}
+
+.center_column{
+    
+    border-style: outset;
+    padding: 12px;
+    background-color: #b8b8b8;
+    margin: 0 auto;
+    width: 768px;
+
+}
+
+.footer_tiles{
+
+    margin: auto 5;
+    width: 30%;
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 75%;
+
+}
+
+.buttons{
+
+    margin: 5px;
+    border-style: outset;
+    padding: 5px;
+    background-color: #010081;
+    width: 15%;
+    display: inline;
+    color: #c3c3c3;
+    text-align: center;
+
+}
+
+.center{
+
+    width: 99%;
+    margin: 0 auto;
+    align-self: center;
+
+}
+
+.navButtons{
+
+    background-color: #a1a1a1;
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+    margin-left: 29px;
+    margin-right: 29px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.red_text{
+
+    color: red;
+
+}
