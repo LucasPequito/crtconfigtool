@@ -1,7 +1,7 @@
 window.onload = function () {
 
     let aspectRationRun = document.getElementById("calc_aspc_rt");
-    aspectRationRun.addEventListener("click", calculateAspectRatio);
+    aspectRationRun.addEventListener("click", Run);
 
     let clearAllButton = document.getElementById("clearAll_res_ref");
     clearAllButton.addEventListener("click", clearAll);
@@ -12,59 +12,115 @@ window.onload = function () {
 
         document.resolution_aspectRatio.horizontal_px.value = "";
         document.resolution_aspectRatio.vertical_px.value = "";
-        document.resolution_aspectRatio.aspect_ratio.value = "";
+        document.resolution_aspectRatio.aspect_ratio_h.value = "";
+        document.resolution_aspectRatio.aspect_ratio_v.value = "";
 
     }
 
-    function calculateAspectRatio() {
+    function Run() {
 
-        var horzRes = Number(document.resolution_aspectRatio.horizontal_px.value); /*Horizontal pixel count*/
-        var vertRes = Number(document.resolution_aspectRatio.vertical_px.value); /*vertical pixel count*/
+        var horzRes = document.resolution_aspectRatio.horizontal_px.value;
+        var vertRes = document.resolution_aspectRatio.vertical_px.value;
+        var aspectRatioH = document.resolution_aspectRatio.aspect_ratio_h.value;
+        var aspectRatioV = document.resolution_aspectRatio.aspect_ratio_v.value;
 
-        var validateHorz, validateVert;
+        let fieldValidations = validateFields(horzRes, vertRes, aspectRatioH, aspectRatioV);
 
-        validateHorz = Number.isInteger(horzRes);
-        validateVert = Number.isInteger(vertRes);
+        if (fieldValidations == "error") {
 
-        if (validateHorz == true && validateVert == true) {
+            alert("Error!");
 
-            var smallerHalf; /*highest integer value a number is divisible by is its own half*/
+        } else if (fieldValidations == "horzRes") {
 
-            if (vertRes < horzRes) {
+            var result = calculateHorizontal(vertRes, aspectRatioH, aspectRatioV);
+            document.resolution_aspectRatio.horizontal_px.value = result;
 
-                smallerHalf = vertRes / 2;
 
-            } else {
+        } else if (fieldValidations == "vertRes") {
 
-                smallerHalf = horzRes / 2;
+            var result = calculateVertical(horzRes, aspectRatioH, aspectRatioV);
+            document.resolution_aspectRatio.vertical_px.value = result;
+
+        } else {
+
+            var result = calculateAspectRatio(horzRes, vertRes);
+
+            document.resolution_aspectRatio.aspect_ratio_h.value = result.charAt(0);
+            document.resolution_aspectRatio.aspect_ratio_v.value = result.charAt(1);
+
+        }
+
+    }
+
+    function calculateHorizontal(vertRes, aspectRatioH, aspectRatioV) {
+
+        var horzRes = aspectRatioH * vertRes / aspectRatioV;
+        return horzRes;
+
+    }
+
+    function calculateVertical(horzRes, aspectRatioH, aspectRatioV) {
+
+        var vertRes = horzRes * aspectRatioV / aspectRatioH;
+        return vertRes;
+
+    }
+
+    function calculateAspectRatio(horzRes, vertRes) {
+
+        var smallerHalf; /*highest integer value a number is divisible by is its own half*/
+        
+        horzRes = parseInt(horzRes);
+        vertRes = parseInt(vertRes);
+
+        if (vertRes < horzRes) {
+
+            smallerHalf = vertRes / 2;
+
+        } else {
+
+            smallerHalf = horzRes / 2;
+
+        }
+
+        var i = 2; /*Iniciated as 2, or else will loop forever since a all numbers are divisible by 1*/
+
+        while (i < smallerHalf) {
+
+            if (horzRes % i == 0 && vertRes % i == 0) { /*If both measurements are divisible by the iterator ie i is CGF* of both*/
+
+                horzRes = horzRes / i;  /*If true divide both numbers by their common divisor*/
+                vertRes = vertRes / i;
+
+            } else { /*If false jump to the next divisor until it reaches smallestHalf*/
+
+                i++;
 
             }
 
-            var i = 2; /*Iniciated as 2, or else will loop forever since a all number are divisible by 1*/
+        }
 
-            while (i < smallerHalf) {
+        return horzRes.toString() + vertRes.toString();
 
-                if (horzRes % i == 0 && vertRes % i == 0) { /*If both measurements are divisible by the iterator ie i is CGF* of both*/
+    }
 
-                    horzRes = horzRes / i;  /*If true divide both numbers by their common divisor*/
-                    vertRes = vertRes / i;
+    function validateFields(horzRes, vertRes, aspectRatioH, aspectRatioV) {
 
-                    continue;
+        if (horzRes == "") {
 
-                } else { /*If false jump to the next divisor until it reaches smallestHalf*/
+            return "horzRes";
 
-                    i++;
+        } else if (vertRes == "") {
 
-                }
+            return "vertRes";
 
-            }
+        } else if (aspectRatioH == "" && aspectRatioV == "") {
 
-            var aspctRatio = horzRes + ":" + vertRes;
-            document.resolution_aspectRatio.aspect_ratio.value = aspctRatio;
+            return "aspectRatio";
 
-        }else{
+        } else {
 
-            alert("both horizontal and vertical sizes must be an integer number");
+            return "error";
 
         }
 
