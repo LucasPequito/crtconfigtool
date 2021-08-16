@@ -140,9 +140,6 @@ window.onload = function () {
 
     function calculateRefreshRate(horizontalScan, verticalPixelCount) {
 
-        parseInt(horizontalScan);
-        parseInt(verticalPixelCount);
-
         var result = horizontalScan / verticalPixelCount * 0.95;
 
         return result;
@@ -150,9 +147,6 @@ window.onload = function () {
     }
 
     function calculateVerticalResolution(horizontalScan, refreshRate) {
-
-        parseInt(horizontalScan);
-        parseInt(refreshRate);
 
         var result = horizontalScan * 0.95 / refreshRate;
 
